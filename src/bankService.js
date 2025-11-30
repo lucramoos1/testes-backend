@@ -18,6 +18,14 @@ const bankService = {
             throw new Error("Usuário não encontrado");
         }
 
+        if (amount <= 0) {
+            throw new Error("Valor deve ser maior que zero");
+        }
+
+        if (sender.balance < amount) {
+            throw new Error("Saldo insuficiente");
+        }
+
         sender.balance -= amount;
         receiver.balance += amount;
 
