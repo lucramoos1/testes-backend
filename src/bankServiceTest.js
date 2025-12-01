@@ -12,23 +12,24 @@ describe('bankService.transfer', () => {
     });
 
     // Cenário Negativo: Saldo Insuficiente
-    test('deve permitir saldo negativo (falha no código atual)', () => {
-        bankService.transfer(1, 2, 1500);
-        expect(bankService.getBalance(1)).toBeLessThan(0);
+    test('deve retornar erro quando saldo é insuficiente', () => {
+        expect(() => {
+            bankService.transfer(1, 2, 5000);
+        }).toThrow("Saldo insuficiente");
     });
 
     // Teste de Limite: Valor Zero
     test('deve rejeitar transferência de valor zero', () => {
         expect(() => {
             bankService.transfer(1, 2, 0);
-        }).toThrow();
+        }).toThrow("Valor deve ser maior que zero");
     });
 
     // Teste de Limite: Valor Negativo
     test('deve rejeitar transferência com valor negativo', () => {
         expect(() => {
             bankService.transfer(1, 2, -100);
-        }).toThrow();
+        }).toThrow("Valor deve ser maior que zero");
     });
 
     // Teste de Entrada: Usuário Inexistente
